@@ -26,7 +26,7 @@ jobs:
         DISCORD_WEBHOOK_URL: ${{ secrets.MATH_WEBHOOK }}
       run: python math_facts.py
 
-    - name: Send english fact
+    - name: Send math fact
       env:
         DISCORD_WEBHOOK_URL: ${{ secrets.ENGLISH_WEBHOOK }}
-      run: python english_facts.py
+      run: python math_facts.py
