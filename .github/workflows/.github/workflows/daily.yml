@@ -1,0 +1,32 @@
+name: Send Daily Facts to Discord
+
+on:
+  schedule:
+    - cron: "0 8 * * *" # codziennie o 8:00 UTC (czyli 10:00 w PL)
+  workflow_dispatch: # pozwala uruchomić ręcznie
+
+jobs:
+  send-facts:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install requests
+
+    - name: Send math fact
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.MATH_WEBHOOK }}
+      run: python math_facts.py
+
+    - name: Send english fact
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.ENGLISH_WEBHOOK }}
+      run: python english_facts.py
